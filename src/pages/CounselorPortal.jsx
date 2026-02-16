@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {
     Calendar, Clock, Video, FileText, MoreVertical, CheckCircle,
     PieChart, DollarSign, LayoutDashboard, Users, Settings,
-    Bell, Search, ChevronRight, Calculator, Star, LogOut, Plus
+    Bell, Search, ChevronRight, Calculator, Star, LogOut, Plus, Wallet, CreditCard
 } from 'lucide-react';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
@@ -16,7 +16,7 @@ const CounselorPortal = () => {
         { id: 'schedule', label: 'My Schedule', icon: Calendar },
         { id: 'clients', label: 'Clients', icon: Users },
         { id: 'notes', label: 'Notes', icon: FileText },
-        { id: 'earnings', label: 'Earnings', icon: PieChart },
+        { id: 'wallet', label: 'My Wallet', icon: Wallet },
         { id: 'settings', label: 'Settings', icon: Settings },
     ];
 
@@ -47,7 +47,7 @@ const CounselorPortal = () => {
 
                         {/* Dashboard Widgets */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                            <StatWidget label="Total Revenue" value="KES 86,500" change="+12.5%" icon={DollarSign} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
+                            <StatWidget label="Available Minutes" value="120 min" change="+60 min" icon={Clock} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
                             <StatWidget label="Sessions Held" value="24" change="+4" icon={Video} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/10" />
                             <StatWidget label="Client Rating" value="4.9/5" change="Top 5%" icon={Star} color="text-orange-500" bg="bg-orange-50 dark:bg-orange-900/10" />
                             <StatWidget label="Pending Notes" value="3" change="Needs Action" icon={FileText} color="text-purple-600" bg="bg-purple-50 dark:bg-purple-900/10" />
@@ -99,25 +99,26 @@ const CounselorPortal = () => {
 
                             {/* Right Column */}
                             <div className="space-y-8">
-                                {/* Earnings Card */}
-                                <div className="bg-[var(--color-primary)] rounded-3xl p-8 text-white relative overflow-hidden cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setActiveTab('earnings')}>
+                                {/* Wallet Card */}
+                                <div className="bg-[var(--color-primary)] rounded-3xl p-8 text-white relative overflow-hidden cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setActiveTab('wallet')}>
                                     <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
 
-                                    <h3 className="font-medium text-white/80 mb-1">Available for Payout</h3>
-                                    <div className="text-4xl font-display font-bold mb-6">KES 45,200</div>
+                                    <h3 className="font-medium text-white/80 mb-1">Available Minutes</h3>
+                                    <div className="text-4xl font-display font-bold mb-6">120 <span className="text-xl font-normal opacity-80">min</span></div>
 
                                     <div className="bg-white/10 rounded-xl p-4 backdrop-blur-sm mb-6">
                                         <div className="flex justify-between text-sm mb-2">
-                                            <span className="text-white/70">Next Payout</span>
-                                            <span className="font-bold">Sep 15</span>
+                                            <span className="text-white/70">Next Session</span>
+                                            <span className="font-bold">60 min</span>
                                         </div>
                                         <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
-                                            <div className="h-full bg-white w-3/4 rounded-full"></div>
+                                            <div className="h-full bg-white w-1/2 rounded-full"></div>
                                         </div>
+                                        <div className="mt-2 text-xs text-white/60">Using 60 of 120 available minutes</div>
                                     </div>
 
                                     <button className="w-full py-3 bg-white text-[var(--color-primary)] rounded-xl font-bold hover:bg-green-50 transition-colors">
-                                        View Transaction History
+                                        Top Up Minutes
                                     </button>
                                 </div>
 
@@ -293,18 +294,80 @@ const CounselorPortal = () => {
                         </div>
                     </div>
                 );
-            case 'earnings':
+            case 'wallet':
                 return (
                     <div className="space-y-6 animate-in fade-in duration-500">
-                        <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white">Earnings & Payouts</h1>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <StatWidget label="Total Balance" value="KES 45,200" change="Available" icon={DollarSign} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
-                            <StatWidget label="Pending" value="KES 12,500" change="Processing" icon={Clock} color="text-orange-600" bg="bg-orange-50 dark:bg-orange-900/10" />
-                            <StatWidget label="Last Payout" value="KES 38,000" change="Paid" icon={CheckCircle} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/10" />
+                        <div className="flex justify-between items-center">
+                            <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white">My Wallet</h1>
+                            <button className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl font-bold hover:bg-[#234b24] transition-colors flex items-center gap-2">
+                                <Plus size={20} /> Buy Minutes
+                            </button>
                         </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <StatWidget label="Current Balance" value="120 min" change="Available" icon={Clock} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
+                            <StatWidget label="Reserved" value="60 min" change="Upcoming" icon={Calendar} color="text-orange-600" bg="bg-orange-50 dark:bg-orange-900/10" />
+                            <StatWidget label="Total Purchased" value="5000 min" change="Lifetime" icon={CreditCard} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/10" />
+                        </div>
+
+                        {/* Top Up Packages */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            {[
+                                { minutes: 60, price: 'KES 1,000', popular: false },
+                                { minutes: 300, price: 'KES 4,500', popular: true },
+                                { minutes: 600, price: 'KES 8,000', popular: false }
+                            ].map((pkg, i) => (
+                                <div key={i} className={clsx(
+                                    "p-6 rounded-3xl border transition-all cursor-pointer relative",
+                                    pkg.popular
+                                        ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)] shadow-lg shadow-green-900/20"
+                                        : "bg-white dark:bg-zinc-900 border-gray-100 dark:border-zinc-800 hover:border-[var(--color-primary)] dark:hover:border-[var(--color-primary)]"
+                                )}>
+                                    {pkg.popular && (
+                                        <div className="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-2xl">
+                                            Best Value
+                                        </div>
+                                    )}
+                                    <h3 className={clsx("text-lg font-bold mb-2", pkg.popular ? "text-white" : "text-gray-900 dark:text-white")}>{pkg.minutes} Minutes</h3>
+                                    <p className={clsx("text-3xl font-bold mb-6", pkg.popular ? "text-white" : "text-[var(--color-primary)]")}>{pkg.price}</p>
+                                    <button className={clsx(
+                                        "w-full py-3 rounded-xl font-bold transition-colors",
+                                        pkg.popular
+                                            ? "bg-white text-[var(--color-primary)] hover:bg-green-50"
+                                            : "bg-gray-50 dark:bg-zinc-800 text-gray-900 dark:text-white hover:bg-[var(--color-primary)] hover:text-white"
+                                    )}>Buy Now</button>
+                                </div>
+                            ))}
+                        </div>
+
                         <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-gray-100 dark:border-zinc-800 shadow-sm">
                             <h3 className="font-bold text-gray-900 dark:text-white mb-6">Transaction History</h3>
-                            <p className="text-gray-500">No recent transactions to display.</p>
+                            <div className="space-y-4">
+                                <div className="flex justify-between items-center p-4 hover:bg-gray-50 dark:hover:bg-zinc-800 rounded-xl transition-colors">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
+                                            <CreditCard size={18} />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-900 dark:text-white">Purchased 300 Minutes</h4>
+                                            <p className="text-xs text-gray-500">Sep 10, 2024 • M-Pesa</p>
+                                        </div>
+                                    </div>
+                                    <span className="font-bold text-green-600">+300 min</span>
+                                </div>
+                                <div className="flex justify-between items-center p-4 hover:bg-gray-50 dark:hover:bg-zinc-800 rounded-xl transition-colors">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                                            <Video size={18} />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-gray-900 dark:text-white">Session with Sarah K.</h4>
+                                            <p className="text-xs text-gray-500">Sep 12, 2024 • 60 min session</p>
+                                        </div>
+                                    </div>
+                                    <span className="font-bold text-red-500">-60 min</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 );
