@@ -14,7 +14,7 @@ const CounselorPortal = () => {
     const menuItems = [
         { id: 'overview', label: 'Overview', icon: LayoutDashboard },
         { id: 'schedule', label: 'My Schedule', icon: Calendar },
-        { id: 'patients', label: 'Patients', icon: Users },
+        { id: 'clients', label: 'Clients', icon: Users },
         { id: 'notes', label: 'Notes', icon: FileText },
         { id: 'earnings', label: 'Earnings', icon: PieChart },
         { id: 'settings', label: 'Settings', icon: Settings },
@@ -49,7 +49,7 @@ const CounselorPortal = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <StatWidget label="Total Revenue" value="KES 86,500" change="+12.5%" icon={DollarSign} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
                             <StatWidget label="Sessions Held" value="24" change="+4" icon={Video} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/10" />
-                            <StatWidget label="Patient Rating" value="4.9/5" change="Top 5%" icon={Star} color="text-orange-500" bg="bg-orange-50 dark:bg-orange-900/10" />
+                            <StatWidget label="Client Rating" value="4.9/5" change="Top 5%" icon={Star} color="text-orange-500" bg="bg-orange-50 dark:bg-orange-900/10" />
                             <StatWidget label="Pending Notes" value="3" change="Needs Action" icon={FileText} color="text-purple-600" bg="bg-purple-50 dark:bg-purple-900/10" />
                         </div>
 
@@ -136,7 +136,7 @@ const CounselorPortal = () => {
                                             time="15m ago"
                                         />
                                     </div>
-                                    <button className="w-full mt-4 py-3 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-zinc-800" onClick={() => setActiveTab('patients')}>
+                                    <button className="w-full mt-4 py-3 border border-gray-200 dark:border-zinc-700 text-gray-600 dark:text-gray-300 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-zinc-800" onClick={() => setActiveTab('clients')}>
                                         View All Requests
                                     </button>
                                 </div>
@@ -274,15 +274,15 @@ const CounselorPortal = () => {
                         </div>
                     </div>
                 );
-            case 'patients':
+            case 'clients':
                 return (
                     <div className="space-y-6 animate-in fade-in duration-500">
-                        <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white">Patients</h1>
+                        <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white">Clients</h1>
                         <div className="bg-white dark:bg-zinc-900 rounded-3xl p-8 border border-gray-100 dark:border-zinc-800 shadow-sm">
                             <div className="flex items-center gap-4 mb-8">
                                 <div className="relative flex-grow">
                                     <Search size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
-                                    <input type="text" placeholder="Search patients..." className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-zinc-800 rounded-xl border-transparent focus:bg-white dark:focus:bg-zinc-900 outline-none transition-all" />
+                                    <input type="text" placeholder="Search clients..." className="w-full pl-12 pr-4 py-3 bg-gray-50 dark:bg-zinc-800 rounded-xl border-transparent focus:bg-white dark:focus:bg-zinc-900 outline-none transition-all" />
                                 </div>
                             </div>
                             <div className="space-y-4">
@@ -349,7 +349,7 @@ const CounselorPortal = () => {
                         <input
                             type="text"
                             className="w-full pl-10 pr-4 py-3 bg-gray-50 dark:bg-zinc-800 rounded-xl text-sm border-transparent focus:bg-white dark:focus:bg-zinc-900 border border-gray-100 dark:border-zinc-700 outline-none transition-all"
-                            placeholder="Search patients..."
+                            placeholder="Search clients..."
                         />
                     </div>
 
