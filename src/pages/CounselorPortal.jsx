@@ -10,6 +10,16 @@ import { motion } from 'framer-motion';
 const CounselorPortal = () => {
     const [activeTab, setActiveTab] = useState('overview');
     const [showNotes, setShowNotes] = useState(false);
+    const [isOnline, setIsOnline] = useState(() => {
+        const saved = localStorage.getItem('counselorStatus');
+        return saved !== null ? JSON.parse(saved) : true;
+    });
+
+    const toggleStatus = () => {
+        const newStatus = !isOnline;
+        setIsOnline(newStatus);
+        localStorage.setItem('counselorStatus', JSON.stringify(newStatus));
+    };
 
     const menuItems = [
         { id: 'overview', label: 'Overview', icon: LayoutDashboard },
@@ -33,10 +43,18 @@ const CounselorPortal = () => {
                             </div>
 
                             <div className="flex items-center gap-4">
-                                <div className="flex items-center gap-2 px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-full text-sm font-bold border border-green-100 dark:border-green-800/30">
-                                    <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                    Online & Accepting
-                                </div>
+                                <button
+                                    onClick={toggleStatus}
+                                    className={clsx(
+                                        "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold border transition-all",
+                                        isOnline
+                                            ? "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-100 dark:border-green-800/30 hover:bg-green-100"
+                                            : "bg-gray-100 dark:bg-zinc-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-zinc-700 hover:bg-gray-200"
+                                    )}
+                                >
+                                    <span className={clsx("w-2 h-2 rounded-full animate-pulse", isOnline ? "bg-green-500" : "bg-gray-400")}></span>
+                                    {isOnline ? "Online & Accepting" : "Offline / Busy"}
+                                </button>
                                 <button className="w-10 h-10 rounded-full bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 flex items-center justify-center text-gray-600 dark:text-gray-300 relative hover:shadow-md transition-shadow">
                                     <Bell size={20} />
                                     <span className="absolute top-0 right-0 w-2.5 h-2.5 bg-red-500 border-2 border-white dark:border-zinc-800 rounded-full"></span>

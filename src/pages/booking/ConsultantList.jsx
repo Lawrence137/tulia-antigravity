@@ -23,49 +23,70 @@ const ConsultantList = () => {
             </div>
 
             <div className="space-y-4">
-                {consultants.map((c) => (
-                    <div key={c.id} className="bg-white dark:bg-zinc-900 border border-gray-100 dark:border-zinc-800 rounded-2xl p-6 flex flex-col sm:flex-row gap-6 hover:shadow-md transition-shadow">
-                        <img src={c.image} alt={c.name} className="w-24 h-24 rounded-2xl object-cover bg-gray-100" />
+                {consultants.map((c) => {
+                    const isAmani = c.name === "Dr. Amani K.";
+                    const isOnline = isAmani ? (JSON.parse(localStorage.getItem('counselorStatus')) ?? true) : true;
 
-                        <div className="flex-grow">
-                            <div className="flex justify-between items-start mb-2">
-                                <div>
-                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">{c.name}</h3>
-                                    <p className="text-gray-500 dark:text-gray-400 text-sm">{c.title}</p>
+                    return (
+                        <div key={c.id} className={clsx(
+                            "bg-white dark:bg-zinc-900 border rounded-2xl p-6 flex flex-col sm:flex-row gap-6 transition-shadow",
+                            !isOnline ? "opacity-75 border-gray-100 dark:border-zinc-800" : "border-gray-100 dark:border-zinc-800 hover:shadow-md"
+                        )}>
+                            <div className="relative">
+                                <img src={c.image} alt={c.name} className={clsx("w-24 h-24 rounded-2xl object-cover bg-gray-100", !isOnline && "grayscale")} />
+                                {!isOnline && (
+                                    <div className="absolute inset-0 bg-white/50 dark:bg-black/50 rounded-2xl flex items-center justify-center">
+                                        <span className="text-xs font-bold bg-gray-800 text-white px-2 py-1 rounded-md">Offline</span>
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="flex-grow">
+                                <div className="flex justify-between items-start mb-2">
+                                    <div>
+                                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">{c.name}</h3>
+                                        <p className="text-gray-500 dark:text-gray-400 text-sm">{c.title}</p>
+                                    </div>
+                                    <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-lg text-yellow-700 dark:text-yellow-500 text-sm font-bold">
+                                        <Star size={14} fill="currentColor" /> {c.rating}
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-1 bg-yellow-50 dark:bg-yellow-900/20 px-2 py-1 rounded-lg text-yellow-700 dark:text-yellow-500 text-sm font-bold">
-                                    <Star size={14} fill="currentColor" /> {c.rating}
+
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                    {c.tags.map(tag => (
+                                        <span key={tag} className="text-xs font-medium px-2.5 py-1 bg-gray-50 dark:bg-zinc-800 text-gray-600 dark:text-gray-300 rounded-md">
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400 border-t border-gray-50 dark:border-zinc-800 pt-4">
+                                    <span className="flex items-center gap-1.5"><Video size={16} /> Video & Audio</span>
+                                    <span className="flex items-center gap-1.5"><Award size={16} /> 5+ Years Exp.</span>
                                 </div>
                             </div>
 
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {c.tags.map(tag => (
-                                    <span key={tag} className="text-xs font-medium px-2.5 py-1 bg-gray-50 dark:bg-zinc-800 text-gray-600 dark:text-gray-300 rounded-md">
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-
-                            <div className="flex items-center gap-6 text-sm text-gray-500 dark:text-gray-400 border-t border-gray-50 dark:border-zinc-800 pt-4">
-                                <span className="flex items-center gap-1.5"><Video size={16} /> Video & Audio</span>
-                                <span className="flex items-center gap-1.5"><Award size={16} /> 5+ Years Exp.</span>
+                            <div className="flex flex-col justify-between items-end min-w-[140px] border-l border-gray-50 dark:border-zinc-800 pl-6 border-dashed">
+                                <div className="text-right mb-4">
+                                    <span className="block text-xs text-gray-400">Starting from</span>
+                                    <span className="font-bold text-xl text-[var(--color-primary)]">{c.price}</span>
+                                </div>
+                                <button
+                                    onClick={() => isOnline && navigate('/book/confirm')}
+                                    disabled={!isOnline}
+                                    className={clsx(
+                                        "w-full py-2.5 rounded-xl font-semibold transition-colors",
+                                        isOnline
+                                            ? "bg-[var(--color-primary)] text-white hover:bg-[#234b24]"
+                                            : "bg-gray-100 text-gray-400 cursor-not-allowed dark:bg-zinc-800 dark:text-gray-600"
+                                    )}
+                                >
+                                    {isOnline ? "Book Now" : "Unavailable"}
+                                </button>
                             </div>
                         </div>
-
-                        <div className="flex flex-col justify-between items-end min-w-[140px] border-l border-gray-50 dark:border-zinc-800 pl-6 border-dashed">
-                            <div className="text-right mb-4">
-                                <span className="block text-xs text-gray-400">Starting from</span>
-                                <span className="font-bold text-xl text-[var(--color-primary)]">{c.price}</span>
-                            </div>
-                            <button
-                                onClick={() => navigate('/book/confirm')}
-                                className="w-full bg-[var(--color-primary)] text-white py-2.5 rounded-xl font-semibold hover:bg-[#234b24] transition-colors"
-                            >
-                                Book Now
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                    );
+                })}
             </div>
         </div>
     );

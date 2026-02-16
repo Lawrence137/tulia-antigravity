@@ -10,8 +10,16 @@ const BookingConfirmation = () => {
     const [duration, setDuration] = useState(60);
     const [paymentMethod, setPaymentMethod] = useState(null);
     const [selectedSlot, setSelectedSlot] = useState(null);
+    const [selectedDay, setSelectedDay] = useState('Mon 12');
 
     const rates = { 45: 2000, 60: 7500, 90: 10000 };
+
+    // Mock blocked slots based on Counselor's schedule
+    const isSlotBlocked = (day, slot) => {
+        if (day === 'Mon 12' && slot === '2:00 PM') return true; // Team Meeting
+        if (day === 'Tue 13' && slot === '11:00 AM') return true; // Overlap with 10:30 AM session
+        return false;
+    };
 
     const handleNext = () => {
         if (step === 3) {
@@ -77,26 +85,42 @@ const BookingConfirmation = () => {
                         <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Choose a Time Slot</h2>
                         <div className="grid grid-cols-3 gap-3 mb-6">
                             {['Mon 12', 'Tue 13', 'Wed 14'].map(d => (
-                                <div key={d} className="text-center p-3 rounded-xl bg-gray-50 border border-gray-100 dark:bg-zinc-800 dark:border-zinc-700">
-                                    <span className="block font-bold text-gray-900 dark:text-white">{d}</span>
-                                </div>
+                                <button
+                                    key={d}
+                                    onClick={() => { setSelectedDay(d); setSelectedSlot(null); }}
+                                    className={clsx(
+                                        "text-center p-3 rounded-xl border transition-all",
+                                        selectedDay === d
+                                            ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
+                                            : "bg-gray-50 border-gray-100 dark:bg-zinc-800 dark:border-zinc-700 hover:border-[var(--color-primary)]"
+                                    )}
+                                >
+                                    <span className={clsx("block font-bold", selectedDay === d ? "text-white" : "text-gray-900 dark:text-white")}>{d}</span>
+                                </button>
                             ))}
                         </div>
                         <div className="grid grid-cols-2 gap-3">
-                            {['10:00 AM', '11:00 AM', '2:00 PM', '4:00 PM'].map(slot => (
-                                <button
-                                    key={slot}
-                                    onClick={() => setSelectedSlot(slot)}
-                                    className={clsx(
-                                        "py-3 rounded-xl font-medium transition-colors border",
-                                        selectedSlot === slot
-                                            ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
-                                            : "bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 hover:border-[var(--color-primary)]"
-                                    )}
-                                >
-                                    {slot}
-                                </button>
-                            ))}
+                            {['10:00 AM', '11:00 AM', '2:00 PM', '4:00 PM'].map(slot => {
+                                const blocked = isSlotBlocked(selectedDay, slot);
+                                return (
+                                    <button
+                                        key={slot}
+                                        onClick={() => !blocked && setSelectedSlot(slot)}
+                                        disabled={blocked}
+                                        className={clsx(
+                                            "py-3 rounded-xl font-medium transition-colors border relative",
+                                            blocked
+                                                ? "bg-gray-100 dark:bg-zinc-800 text-gray-400 dark:text-gray-600 border-transparent cursor-not-allowed"
+                                                : selectedSlot === slot
+                                                    ? "bg-[var(--color-primary)] text-white border-[var(--color-primary)]"
+                                                    : "bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-700 text-gray-700 dark:text-gray-300 hover:border-[var(--color-primary)]"
+                                        )}
+                                    >
+                                        {slot}
+                                        {blocked && <span className="absolute top-1 right-2 text-[10px] items-center justify-center font-bold text-red-400 hidden sm:flex">BUSY</span>}
+                                    </button>
+                                );
+                            })}
                         </div>
                     </motion.div>
                 )}
@@ -152,7 +176,7 @@ const BookingConfirmation = () => {
                         </div>
                         <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Booking Confirmed!</h2>
                         <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md mx-auto">
-                            Your session with Dr. Amani K. is scheduled for <span className="font-bold text-gray-900">Tue 13 at {selectedSlot}</span>.
+                            Your session with Dr. Amani K. is scheduled for <span className="font-bold text-gray-900">{selectedDay} at {selectedSlot}</span>.
                         </p>
 
                         <div className="bg-blue-50 dark:bg-blue-900/10 p-4 rounded-xl text-blue-800 dark:text-blue-300 mb-8 max-w-sm mx-auto text-sm">
