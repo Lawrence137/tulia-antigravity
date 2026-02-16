@@ -27,6 +27,7 @@ const CounselorPortal = () => {
         { id: 'clients', label: 'Clients', icon: Users },
         { id: 'notes', label: 'Notes', icon: FileText },
         { id: 'wallet', label: 'My Wallet', icon: Wallet },
+        { id: 'earnings', label: 'Earnings', icon: DollarSign },
         { id: 'settings', label: 'Settings', icon: Settings },
     ];
 
@@ -66,9 +67,9 @@ const CounselorPortal = () => {
                         {/* Dashboard Widgets */}
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                             <StatWidget label="Available Minutes" value="120 min" change="+60 min" icon={Clock} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
+                            <StatWidget label="Total Revenue" value="KES 45,200" change="+12%" icon={DollarSign} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
                             <StatWidget label="Sessions Held" value="24" change="+4" icon={Video} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/10" />
                             <StatWidget label="Client Rating" value="4.9/5" change="Top 5%" icon={Star} color="text-orange-500" bg="bg-orange-50 dark:bg-orange-900/10" />
-                            <StatWidget label="Pending Notes" value="3" change="Needs Action" icon={FileText} color="text-purple-600" bg="bg-purple-50 dark:bg-purple-900/10" />
                         </div>
 
                         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -137,6 +138,29 @@ const CounselorPortal = () => {
 
                                     <button className="w-full py-3 bg-white text-[var(--color-primary)] rounded-xl font-bold hover:bg-green-50 transition-colors">
                                         Top Up Minutes
+                                    </button>
+                                </div>
+
+                                {/* Earnings Card */}
+                                <div className="bg-gray-900 dark:bg-zinc-800 rounded-3xl p-8 text-white relative overflow-hidden cursor-pointer hover:shadow-lg transition-shadow" onClick={() => setActiveTab('earnings')}>
+                                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl"></div>
+
+                                    <h3 className="font-medium text-white/80 mb-1">Total Earnings</h3>
+                                    <div className="text-4xl font-display font-bold mb-6">KES 45.2k</div>
+
+                                    <div className="flex gap-4 mb-6">
+                                        <div>
+                                            <p className="text-xs text-white/60">This Month</p>
+                                            <p className="font-bold">KES 12.5k</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-xs text-white/60">Pending</p>
+                                            <p className="font-bold">KES 3.2k</p>
+                                        </div>
+                                    </div>
+
+                                    <button className="w-full py-3 bg-white/10 backdrop-blur-md text-white border border-white/20 rounded-xl font-bold hover:bg-white/20 transition-colors">
+                                        Withdraw Funds
                                     </button>
                                 </div>
 
@@ -385,6 +409,99 @@ const CounselorPortal = () => {
                                     </div>
                                     <span className="font-bold text-red-500">-60 min</span>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+
+            case 'earnings':
+                return (
+                    <div className="space-y-6 animate-in fade-in duration-500">
+                        <div className="flex justify-between items-center">
+                            <h1 className="text-3xl font-display font-bold text-gray-900 dark:text-white">Earnings & Payouts</h1>
+                            <button className="px-4 py-2 bg-gray-900 dark:bg-zinc-700 text-white rounded-xl font-bold hover:bg-black transition-colors flex items-center gap-2">
+                                <DollarSign size={20} /> Request Payout
+                            </button>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <StatWidget label="Total Revenue" value="KES 45,200" change="+12%" icon={DollarSign} color="text-green-600" bg="bg-green-50 dark:bg-green-900/10" />
+                            <StatWidget label="Pending Clearance" value="KES 5,400" change="3 Sessions" icon={Clock} color="text-orange-600" bg="bg-orange-50 dark:bg-orange-900/10" />
+                            <StatWidget label="Available for Withdrawal" value="KES 39,800" change="Ready" icon={Wallet} color="text-blue-600" bg="bg-blue-50 dark:bg-blue-900/10" />
+                        </div>
+
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            {/* Transaction History */}
+                            <div className="lg:col-span-2 bg-white dark:bg-zinc-900 rounded-3xl border border-gray-100 dark:border-zinc-800 shadow-sm overflow-hidden">
+                                <div className="p-6 border-b border-gray-100 dark:border-zinc-800 flex justify-between items-center">
+                                    <h3 className="font-bold text-gray-900 dark:text-white">Recent Transactions</h3>
+                                    <button className="text-sm font-medium text-[var(--color-primary)] hover:underline">Download Statement</button>
+                                </div>
+                                <div className="divide-y divide-gray-100 dark:divide-zinc-800">
+                                    {[
+                                        { id: 1, client: "Sarah K.", date: "Sep 12, 2024", amount: "KES 2,000", status: "Cleared", type: "Video Therapy" },
+                                        { id: 2, client: "Michael O.", date: "Sep 11, 2024", amount: "KES 1,500", status: "Pending", type: "Voice Consultation" },
+                                        { id: 3, client: "Anonymous #8821", date: "Sep 10, 2024", amount: "KES 1,000", status: "Cleared", type: "Chat Session" },
+                                        { id: 4, client: "Withdrawal", date: "Sep 05, 2024", amount: "- KES 15,000", status: "Completed", type: "M-Pesa Transfer" },
+                                    ].map((tx) => (
+                                        <div key={tx.id} className="p-4 hover:bg-gray-50 dark:hover:bg-zinc-800 transition-colors flex items-center justify-between">
+                                            <div className="flex items-center gap-4">
+                                                <div className={clsx(
+                                                    "w-10 h-10 rounded-full flex items-center justify-center font-bold",
+                                                    tx.amount.startsWith('-') ? "bg-gray-100 text-gray-600" : "bg-green-50 text-green-600"
+                                                )}>
+                                                    {tx.amount.startsWith('-') ? <LogOut size={18} /> : <DollarSign size={18} />}
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-gray-900 dark:text-white">{tx.client}</h4>
+                                                    <p className="text-xs text-gray-500">{tx.date} • {tx.type}</p>
+                                                </div>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className={clsx("font-bold block", tx.amount.startsWith('-') ? "text-gray-900 dark:text-white" : "text-green-600")}>{tx.amount}</span>
+                                                <span className={clsx(
+                                                    "text-[10px] uppercase font-bold px-2 py-0.5 rounded-full",
+                                                    tx.status === 'Cleared' || tx.status === 'Completed' ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
+                                                )}>{tx.status}</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Payout Options */}
+                            <div className="space-y-6">
+                                <div className="bg-white dark:bg-zinc-900 rounded-3xl p-6 border border-gray-100 dark:border-zinc-800 shadow-sm">
+                                    <h3 className="font-bold text-gray-900 dark:text-white mb-4">Payout Method</h3>
+                                    <div className="space-y-3">
+                                        <div className="p-3 border border-[var(--color-primary)] bg-[var(--color-primary)]/5 rounded-xl flex items-center justify-between cursor-pointer">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-lg bg-green-500 text-white flex items-center justify-center font-bold text-xs">M-PESA</div>
+                                                <div>
+                                                    <p className="font-bold text-sm text-gray-900 dark:text-white">M-Pesa (Preferred)</p>
+                                                    <p className="text-xs text-gray-500">+254 712 *** 789</p>
+                                                </div>
+                                            </div>
+                                            <div className="w-5 h-5 rounded-full bg-[var(--color-primary)] flex items-center justify-center">
+                                                <div className="w-2 h-2 rounded-full bg-white"></div>
+                                            </div>
+                                        </div>
+                                        <div className="p-3 border border-gray-100 dark:border-zinc-800 rounded-xl flex items-center justify-between cursor-pointer hover:border-gray-200 dark:hover:border-zinc-700">
+                                            <div className="flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">BANK</div>
+                                                <div>
+                                                    <p className="font-bold text-sm text-gray-900 dark:text-white">Bank Transfer</p>
+                                                    <p className="text-xs text-gray-500">KCB •••• 4432</p>
+                                                </div>
+                                            </div>
+                                            <div className="w-5 h-5 rounded-full border-2 border-gray-200 dark:border-zinc-700"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button className="w-full py-3 bg-gray-900 hover:bg-black dark:bg-white dark:hover:bg-gray-100 text-white dark:text-gray-900 rounded-xl font-bold transition-colors">
+                                    Manage Payout Methods
+                                </button>
                             </div>
                         </div>
                     </div>
