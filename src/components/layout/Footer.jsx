@@ -15,7 +15,7 @@ const Footer = () => {
                             Tulia
                         </Link>
                         <p className="text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
-                            Democratizing mental health access for all Kenyans. Digital-first, anonymous, and affordable support whenever you need it.
+                            Resilience support for real life and real pressure.
                         </p>
                         <div className="flex items-center gap-4">
                             <a href="#" className="text-gray-400 hover:text-[var(--color-primary)] transition-colors"><Facebook size={20} /></a>
