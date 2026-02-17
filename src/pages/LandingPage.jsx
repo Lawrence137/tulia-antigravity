@@ -49,10 +49,10 @@ const LandingPage = () => {
                         </h3>
 
                         <div className="flex flex-col md:flex-row gap-4 justify-center mb-6">
-                            <Link to="/book" className="flex-1 py-4 px-6 bg-[var(--color-primary)] text-white text-lg font-bold rounded-xl shadow-lg shadow-green-900/20 hover:bg-[#234b24] transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                            <Link to="/login" className="flex-1 py-4 px-6 bg-[var(--color-primary)] text-white text-lg font-bold rounded-xl shadow-lg shadow-green-900/20 hover:bg-[#234b24] transition-all transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
                                 <Phone size={20} /> BOOK A CALLBACK
                             </Link>
-                            <Link to="/book/now" className="flex-1 py-4 px-6 bg-white text-[var(--color-primary)] border-2 border-[var(--color-primary)] text-lg font-bold rounded-xl hover:bg-green-50 transition-all text-center flex items-center justify-center gap-2">
+                            <Link to="/login" className="flex-1 py-4 px-6 bg-white text-[var(--color-primary)] border-2 border-[var(--color-primary)] text-lg font-bold rounded-xl hover:bg-green-50 transition-all text-center flex items-center justify-center gap-2">
                                 <Activity size={20} /> TALK TO SOMEONE NOW
                             </Link>
                         </div>
@@ -120,7 +120,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className="mt-12 text-center">
-                        <Link to="/book" className="inline-flex items-center gap-2 text-[var(--color-primary)] font-bold hover:underline text-lg">
+                        <Link to="/login" className="inline-flex items-center gap-2 text-[var(--color-primary)] font-bold hover:underline text-lg">
                             Book a Private Session <ArrowRight size={20} />
                         </Link>
                     </div>
@@ -157,7 +157,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className="mt-16 text-center">
-                        <Link to="/book" className="px-8 py-4 bg-[var(--color-primary)] text-white font-bold rounded-full hover:bg-[#234b24] transition-colors inline-block">
+                        <Link to="/login" className="px-8 py-4 bg-[var(--color-primary)] text-white font-bold rounded-full hover:bg-[#234b24] transition-colors inline-block">
                             START SUPPORT
                         </Link>
                     </div>
@@ -215,7 +215,7 @@ const LandingPage = () => {
                             </div>
                             <h3 className="text-xl font-bold mb-2">Book a Callback</h3>
                             <p className="text-gray-600 mb-8 flex-grow">You select a time. We call you when you're ready.</p>
-                            <Link to="/book" className="w-full py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl text-center hover:bg-[#234b24]">
+                            <Link to="/login" className="w-full py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl text-center hover:bg-[#234b24]">
                                 SCHEDULE CALLBACK
                             </Link>
                         </div>
@@ -227,7 +227,7 @@ const LandingPage = () => {
                             </div>
                             <h3 className="text-xl font-bold mb-2">Talk Now</h3>
                             <p className="text-gray-600 mb-8 flex-grow">Immediate support when you are feeling overwhelmed.</p>
-                            <Link to="/book/now" className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl text-center hover:bg-blue-700">
+                            <Link to="/login" className="w-full py-3 bg-blue-600 text-white font-bold rounded-xl text-center hover:bg-blue-700">
                                 CONNECT NOW
                             </Link>
                         </div>
@@ -279,10 +279,10 @@ const LandingPage = () => {
                     <h2 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">Your business needs you well.</h2>
                     <p className="text-2xl text-gray-500 mb-12">Silence is expensive. Support is strength.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link to="/book" className="px-10 py-4 bg-[var(--color-primary)] text-white font-bold text-lg rounded-full hover:bg-[#234b24] transition-colors shadow-xl">
+                        <Link to="/login" className="px-10 py-4 bg-[var(--color-primary)] text-white font-bold text-lg rounded-full hover:bg-[#234b24] transition-colors shadow-xl">
                             BOOK A CALLBACK
                         </Link>
-                        <Link to="/book/now" className="px-10 py-4 bg-white text-gray-900 border-2 border-gray-200 font-bold text-lg rounded-full hover:border-[var(--color-primary)] transition-colors">
+                        <Link to="/login" className="px-10 py-4 bg-white text-gray-900 border-2 border-gray-200 font-bold text-lg rounded-full hover:border-[var(--color-primary)] transition-colors">
                             TALK NOW
                         </Link>
                     </div>
@@ -296,7 +296,7 @@ const LandingPage = () => {
 
             {/* MOBILE STICKY BUTTONS (Visible only on small screens) */}
             <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 md:hidden z-50 flex gap-3 shadow-[0_-5px_20px_rgba(0,0,0,0.1)]">
-                <Link to="/book" className="flex-1 py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl text-center text-sm flex items-center justify-center gap-2">
+                <Link to="/login" className="flex-1 py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl text-center text-sm flex items-center justify-center gap-2">
                     <Phone size={18} /> Book Callback
                 </Link>
                 <Link to="/emergency" className="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl text-center text-sm flex items-center justify-center gap-2">
