@@ -49,9 +49,9 @@ const Navbar = () => {
                                 {link.name}
                             </Link>
                         ))}
-                        <button className="bg-[var(--color-primary)] text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-[#234b24] transition-colors cursor-pointer">
+                        <Link to="/login" className="bg-[var(--color-primary)] text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-[#234b24] transition-colors cursor-pointer inline-block">
                             Get Help Now
-                        </button>
+                        </Link>
                     </div>
 
                     {/* Mobile Menu Button */}
@@ -95,9 +95,9 @@ const Navbar = () => {
                                     {isActive(link.path) && <ChevronRight size={16} />}
                                 </Link>
                             ))}
-                            <button className="w-full mt-4 bg-[var(--color-primary)] text-white px-5 py-3 rounded-xl text-base font-medium hover:bg-[#234b24] transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                            <Link to="/login" onClick={() => setIsOpen(false)} className="w-full mt-4 bg-[var(--color-primary)] text-white px-5 py-3 rounded-xl text-base font-medium hover:bg-[#234b24] transition-colors flex items-center justify-center gap-2 cursor-pointer">
                                 Get Help Now
-                            </button>
+                            </Link>
                         </div>
                     </motion.div>
                 )}
