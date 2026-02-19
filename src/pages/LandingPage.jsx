@@ -81,9 +81,9 @@ const LandingPage = () => {
                             If you are in danger or facing violence, press the emergency button for priority routing and referral support. <strong>You will not be ignored.</strong>
                         </p>
                     </div>
-                    <Link to="/emergency" className="shrink-0 px-8 py-3 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition-colors shadow-lg shadow-red-900/20 flex items-center gap-2 animate-pulse">
+                    <a href="tel:999" className="shrink-0 px-8 py-3 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition-colors shadow-lg shadow-red-900/20 flex items-center gap-2 animate-pulse">
                         <AlertCircle size={20} /> EMERGENCY SUPPORT
-                    </Link>
+                    </a>
                 </div>
             </section>
 
@@ -239,9 +239,9 @@ const LandingPage = () => {
                             </div>
                             <h3 className="text-xl font-bold mb-2 text-red-700">Emergency</h3>
                             <p className="text-gray-600 mb-8 flex-grow">Priority routing for urgent safety and violence concerns.</p>
-                            <Link to="/emergency" className="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-center hover:bg-red-700 animate-pulse">
+                            <a href="tel:999" className="w-full py-3 bg-red-600 text-white font-bold rounded-xl text-center hover:bg-red-700 animate-pulse">
                                 EMERGENCY SUPPORT
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -299,9 +299,9 @@ const LandingPage = () => {
                 <Link to="/login" className="flex-1 py-3 bg-[var(--color-primary)] text-white font-bold rounded-xl text-center text-sm flex items-center justify-center gap-2">
                     <Phone size={18} /> Book Callback
                 </Link>
-                <Link to="/emergency" className="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl text-center text-sm flex items-center justify-center gap-2">
+                <a href="tel:999" className="flex-1 py-3 bg-red-600 text-white font-bold rounded-xl text-center text-sm flex items-center justify-center gap-2">
                     <AlertCircle size={18} /> Emergency
-                </Link>
+                </a>
             </div>
         </div>
     );
